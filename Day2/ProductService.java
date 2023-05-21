@@ -2,7 +2,6 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ProductService {
 
     List<Product> products = new ArrayList<>();
@@ -40,28 +39,29 @@ public class ProductService {
     }
 
     public List<Product> getPlace(String place){
-        place = place.toLowerCase();
-        List<Product> p = new ArrayList<>();
-        for(Product prods : products){
-            String pl = prods.getPlace().toLowerCase();
-            if(pl.equals(place)){
-                p.add(prods);
-            }
-        }
-        return p;
+        // place = place.toLowerCase();
+        // List<Product> p = new ArrayList<>();
+        // for(Product prods : products){
+        //     String pl = prods.getPlace().toLowerCase();
+        //     if(pl.equals(place)){
+        //         p.add(prods);
+        //     }
+        // }
+        
+        return products.stream().filter( p -> p.getPlace().equalsIgnoreCase(place)).toList();
     }
 
     public List<Product> getOutOfWarrentyProduct(){
-        //System.out.println(Year.now().getValue());
-        List<Product> p = new ArrayList<>();
-        for(Product prods : products){
-            //System.out.println(prods.getWarranty());
-            if(prods.getWarranty() < Year.now().getValue()){
-                p.add(prods);
-            }
-        }
-
-        return p;
+        // //System.out.println(Year.now().getValue());
+        // List<Product> p = new ArrayList<>();
+        // for(Product prods : products){
+        //     //System.out.println(prods.getWarranty());
+        //     if(prods.getWarranty() < Year.now().getValue()){
+        //         p.add(prods);
+        //     }
+        // }
+        return products.stream().filter( p -> p.getWarranty() < Year.now().getValue()).toList();
+        
     }
 
 }
